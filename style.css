@@ -1,0 +1,61 @@
+.navbar {
+  margin-bottom: 3rem;
+}
+.navbar-brandb {
+  font-size: 4rem !important;
+}
+.log-btn {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 9rem;
+}
+.btn-primary {
+  background-color: white;
+  border-color: green;
+  color: black;
+  margin: .2rem;
+  border-width: .1rem;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+}
+.summary {
+  font-weight: bold;
+}
+.summary-input {
+  width: 30rem;
+  height: 10rem;
+}
+.attitude {
+  font-weight: bold;
+}
+.scale {
+  margin-left: 1em;
+  width: 3em;
+}
+.emoji {
+  font-size: 2rem;
+  display: flex;
+}
+.day{
+  margin-left: 1em;
+  width: 10em;
+}
+.time
+{
+  margin-left: 1em;
+  width: 10em;
+}
+.label {
+  margin-top: 1em;
+}
+.log{
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+.date {
+  margin-top: 2em;
+  color: rgba(0,80,0,1);
+}

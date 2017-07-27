@@ -1,64 +1,70 @@
-$(document).ready(function () {
 const url = 'https://gentle-ridge-36425.herokuapp.com/'
+$(document).ready(function () {
 
 $.get(url)
   .then(displayNick)
   .then(updateNick)
   .then(deleteNick)
+  .then(searchNick)
+  .then(newNick)
+})
 
+function newNick(){
+  $('.saveLog-btn').click(function() {
+    event.preventDefault();
+    let logObject = {
+      date: $('.day').val(),
+      time: $('.time').val(),
+      situation: $('.situation').val(),
+      scale: $('.scale').val(),
+    }
+    $.post(url, logObject)
+    window.location.reload();
+  });
+}
 
-$('.findLog-btn').click(function() {
-  event.preventDefault();
-  let id = '1'
-  $('.log').empty();
-  id = $('.findLog').val()
-  $.get(url + id)
-    .then(displayAttitude);
-});
-
-$('.saveLog-btn').click(function() {
-  event.preventDefault();
-  let logObject = {
-    date: $('.day').val(),
-    time: $('.time').val(),
-    situation: $('.situation').val(),
-    scale: $('.scale').val(),
-  }
-  $.post(url, logObject)
-  window.location.reload();
-});
-
-
-
-});
+function searchNick(){
+  $('.findLog-btn').click(function() {
+    event.preventDefault();
+    let id = '1'
+    $('.log').empty();
+    id = $('.findLog').val()
+    $.get(url + id)
+      .then(displayAttitude);
+  });
+}
 
 function deleteNick(data){
   $('.delete-btn').click(function(event) {
+
     let id = event.target.id
-    const url = 'https://gentle-ridge-36425.herokuapp.com/'
     $.ajax({
       url: url + id,
-      method: 'DELETE'
+      method: 'DELETE',
+      success: function(){
+        console.log('success');
+      }
     })
     $.get(url)
     .then(displayNick)
-    window.location.reload();
+    .then(function() {
+        window.location.reload();
+    })
   })
+
 }
+
 function updateNick(data) {
   $('.edit-btn').click(function(event) {
-      let editId = 0;
-      const url = 'https://gentle-ridge-36425.herokuapp.com/'
+      const id = event.target.id
+
     $.get(url)
-
     .then(function(data) {
-
       const editButtons = document.querySelector('.edit-btn')
       const id = event.target.id
 
       for (var i = 0; i < data.length; i++) {
         if (id == data[i].id) {
-          editId = data[i].id
           return $('.edit-situation').text(data[i].situation) &&
           $('.edit-day').val(data[i].date.slice(0,10)) &&
           $('.edit-time').val(data[i].time) &&
@@ -76,15 +82,17 @@ function updateNick(data) {
         situation: $('.edit-situation').val(),
         scale: $('.edit-scale').val(),
       }
-      console.log(editId);
+      console.log(id);
       $.ajax({
-        url: url + editId,
+        url: url + id,
         method: 'PUT',
         data: editObject
       })
       $.get(url)
       .then(displayNick)
-      window.location.reload();
+      .then(function() {
+          window.location.reload();
+      })
     })
   })
 }

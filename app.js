@@ -1,5 +1,5 @@
 $(document).ready(function () {
-const url = 'http://localhost:8080/'
+const url = 'https://gentle-ridge-36425.herokuapp.com/'
 
 $.get(url)
   .then(displayNick)
@@ -35,7 +35,7 @@ $('.saveLog-btn').click(function() {
 function deleteNick(data){
   $('.delete-btn').click(function(event) {
     let id = event.target.id
-    const url = 'http://localhost:8080/'
+    const url = 'https://gentle-ridge-36425.herokuapp.com/'
     $.ajax({
       url: url + id,
       method: 'DELETE'
@@ -48,7 +48,7 @@ function deleteNick(data){
 function updateNick(data) {
   $('.edit-btn').click(function(event) {
       let editId = 0;
-      const url = 'http://localhost:8080/'
+      const url = 'https://gentle-ridge-36425.herokuapp.com/'
     $.get(url)
 
     .then(function(data) {

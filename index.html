@@ -12,7 +12,7 @@
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <h1>Nattitude</h1>
+      <a href='http://localhost:3000/'><h1>Nattitude</h1></a>
       <p class="tagline" >#nicksbadattitude</p>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -43,10 +43,10 @@
                 <h4>Summary</h4>
               </div>
               <div class="modal-body">
-                <textarea name="name" rows="2" cols="55">
+                <textarea class="situation" name="name" rows="2" cols="55">
                 </textarea>
               </div>
-              <label for="scale" class="scale"><h4>Attitude</h4></label>
+              <label for="scale" class="scaleLabel"><h4>Attitude</h4></label>
               <select class="scale" name="scale">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -59,13 +59,13 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-                <label for="day" class="day label"><h4>Day</h4></label>
+                <label for="day" class="dayLabel label"><h4>Day</h4></label>
                 <input class="day" name="day" type="date" placeholder="yyyy/mm/dd">
-                <label for="time" class="time label"><h4>Time</h4></label>
+                <label for="time" class="timeLabel label"><h4>Time</h4></label>
                 <input class="time" name="time" type="time" placeholder="hh:mm:ss">
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save Log</button>
+                <button type="button" class="saveLog-btn btn btn-primary">Save Log</button>
               </div>
             </div>
           </div>

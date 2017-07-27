@@ -1,25 +1,34 @@
 $(document).ready(function () {
 const url = 'http://localhost:8080/attitudes/'
 
-// $.get('http://localhost:8080/attitudes/')
-//   .then(displayNick);
+$.get(url)
+  .then(displayNick);
 
 $('.findLog-btn').click(function() {
   event.preventDefault();
-  $('.log').empty();
   let id = '1'
+  $('.log').empty();
   id = $('.findLog').val()
   $.get(url + id)
     .then(displayAttitude);
 });
 
-$.get(url)
-  .then(displayNick);
+$('.saveLog-btn').click(function() {
+  event.preventDefault();
+  let logObject = {
+    date: $('.day').val(),
+    time: $('.time').val(),
+    situation: $('.situation').val(),
+    scale: $('.scale').val(),
+  }
+  $.post(url, logObject)
+  window.location.reload();
+});
+
 
 });
 
 function displayAttitude(attitudeData){
-  console.log(attitudeData);
     let badDate = attitudeData.date;
     let newDate = badDate.slice(0,10);
     let date = newDate.split('-');
@@ -115,7 +124,7 @@ function displayNick(logData){
     } else if(logData[i].scale >= 2 && logData[i].scale <= 4) {
       scale ='😡'
     } else {
-      scale = '🦇💩'
+      scale = '🔪😐'
     }
 
     if(parseInt(timeSlice) < 12 && parseInt(timeSlice) !== 0) {

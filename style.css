@@ -67,3 +67,15 @@ a:hover {
   margin-top: 2em;
   color: rgba(0,80,0,1);
 }
+.edit-day{
+  margin-left: 1em;
+  width: 10em;
+}
+.edit-scale{
+  margin-left: 1em;
+  width: 3em;
+}
+.edit-time {
+  margin-left: 1em;
+  width: 10em;
+}

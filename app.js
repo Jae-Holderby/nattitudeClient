@@ -2,7 +2,10 @@ $(document).ready(function () {
 const url = 'http://localhost:8080/attitudes/'
 
 $.get(url)
-  .then(displayNick);
+  .then(displayNick)
+  .then(updateNick)
+  .then(deleteNick)
+
 
 $('.findLog-btn').click(function() {
   event.preventDefault();
@@ -26,7 +29,65 @@ $('.saveLog-btn').click(function() {
 });
 
 
+
 });
+
+function deleteNick(data){
+  $('.delete-btn').click(function(event) {
+    let id = event.target.id
+    const url = 'http://localhost:8080/attitudes/'
+    $.ajax({
+      url: url + id,
+      method: 'DELETE'
+    })
+    $.get(url)
+    .then(displayNick)
+    window.location.reload();
+  })
+}
+function updateNick(data) {
+  $('.edit-btn').click(function(event) {
+      let editId = 0;
+      const url = 'http://localhost:8080/attitudes/'
+    $.get(url)
+
+    .then(function(data) {
+
+      const editButtons = document.querySelector('.edit-btn')
+      const id = event.target.id
+
+      for (var i = 0; i < data.length; i++) {
+        if (id == data[i].id) {
+          editId = data[i].id
+          return $('.edit-situation').text(data[i].situation) &&
+          $('.edit-day').val(data[i].date.slice(0,10)) &&
+          $('.edit-time').val(data[i].time) &&
+          $('.edit-scale').val(data[i].scale)
+        }
+      }
+
+    })
+
+    $('.editLog-btn').click(function() {
+      $('.log').empty();
+      let editObject = {
+        date: $('.edit-day').val(),
+        time: $('.edit-time').val(),
+        situation: $('.edit-situation').val(),
+        scale: $('.edit-scale').val(),
+      }
+      console.log(editId);
+      $.ajax({
+        url: url + editId,
+        method: 'PUT',
+        data: editObject
+      })
+      $.get(url)
+      .then(displayNick)
+      window.location.reload();
+    })
+  })
+}
 
 function displayAttitude(attitudeData){
     let badDate = attitudeData.date;
@@ -74,9 +135,6 @@ function displayAttitude(attitudeData){
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">${date[1]}-${date[2]}-${date[0]} ${attitudeData.time} </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                   </div>
                   <div class="modal-body summary">
                     Summary
@@ -92,7 +150,6 @@ function displayAttitude(attitudeData){
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
@@ -145,8 +202,6 @@ function displayNick(logData){
         `<div class="show date"> <h4>${date[1]}-${date[2]}-${date[0]}</h4></div>`
       )
     }
-
-
         $('.log').append(
           `<div class="show">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#nick${[i]}">
@@ -158,9 +213,11 @@ function displayNick(logData){
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">${date[1]}-${date[2]}-${date[0]} ${logData[i].time} </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
+
+                    <button id=${logData[i].id} type="button" class="edit-btn btn btn-primary edit" data-toggle="modal" data-target="#edit">
+                      edit
                     </button>
+
                   </div>
                   <div class="modal-body summary">
                     Summary
@@ -176,7 +233,7 @@ function displayNick(logData){
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Delete</button>
+                    <button id="${logData[i].id}" type="button" class=" delete-btn btn btn-primary">Delete</button>
                   </div>
                 </div>
               </div>
@@ -185,8 +242,3 @@ function displayNick(logData){
         )
     }
   }
-
-// `<li> Date: ${date[1]}-${date[2]}-${date[0]} </li>
-// <li> Time: ${data[i].time} </li>
-// <li> Summary: ${data[i].situation} </li>
-// <li> Attitude: ${scale} </li> <br>`

@@ -74,6 +74,47 @@
       <h2>Nicks Attitude Log</h2>
       <div class="log">
       </div>
+
+      <div class="modal fade edit" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Edit Log</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body ">
+              <h4>Summary</h4>
+            </div>
+            <div class="modal-body">
+              <textarea class="edit-situation" name="name" rows="2" cols="55" value=""></textarea>
+            </div>
+            <label for="scale" class="scaleLabel"><h4>Attitude</h4></label>
+            <select class="edit-scale" name="scale">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+              <label for="day" class="dayLabel label"><h4>Day</h4></label>
+              <input class="edit-day" name="day" type="text" value="">
+              <label for="time" class="timeLabel label"><h4>Time</h4></label>
+              <input class="edit-time" name="time" type="text" value="">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" id="editLog-btn" class="editLog-btn btn btn-primary editLog-btn">Save Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <script
       src="https://code.jquery.com/jquery-3.2.1.js"

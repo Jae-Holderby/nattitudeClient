@@ -112,13 +112,11 @@ function displayAttitude(attitudeData){
     let currentDate = attitudeData.date.slice(0,10)
 
 
-    if(attitudeData.scale > 8) {
+    if(attitudeData.scale > 7) {
       scale = '😃'
-    } else if(attitudeData.scale >= 7 && attitudeData.scale <= 8) {
+    } else if(attitudeData.scale >= 5 && attitudeData.scale <= 7) {
       scale = '😑'
-    } else if(attitudeData.scale >= 5 && attitudeData.scale <= 6) {
-      scale ='😠'
-    } else if(attitudeData.scale >= 3 && attitudeData.scale <= 4) {
+    } else if(attitudeData.scale >= 2 && attitudeData.scale <= 4) {
       scale ='😡'
     } else {
       scale = '🔪😐'
@@ -186,18 +184,15 @@ function displayNick(logData){
     let currentDate = logData[i].date.slice(0,10)
 
 
-    if(attitudeData.scale > 8) {
+    if(logData[i].scale > 7) {
       scale = '😃'
-    } else if(attitudeData.scale >= 7 && attitudeData.scale <= 8) {
+    } else if(logData[i].scale >= 5 && logData[i].scale <= 7) {
       scale = '😑'
-    } else if(attitudeData.scale >= 5 && attitudeData.scale <= 6) {
-      scale ='😠'
-    } else if(attitudeData.scale >= 3 && attitudeData.scale <= 4) {
+    } else if(logData[i].scale >= 2 && logData[i].scale <= 4) {
       scale ='😡'
     } else {
       scale = '🔪😐'
     }
-
 
     if(parseInt(timeSlice) < 12 && parseInt(timeSlice) !== 0) {
       time = logData[i].time.slice(0,5) + " am"

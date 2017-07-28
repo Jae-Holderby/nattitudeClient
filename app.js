@@ -128,7 +128,7 @@ function displayAttitude(attitudeData){
       time = '12' + attitudeData.time.slice(2,5) + ' am'
     } else if (parseInt(timeSlice - 12) < 10) {
       time = '0' + parseInt(timeSlice - 12) + attitudeData.time.slice(2,5) + " pm"
-    } else if (parseInt(timeSlice) = 12){
+    } else if (parseInt(timeSlice) === 12){
         time = attitudeData.time.slice(2,5) + " pm"
     } else {
       time = parseInt(timeSlice - 12) + attitudeData.time.slice(2,5) + " pm"

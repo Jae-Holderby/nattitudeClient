@@ -19,7 +19,10 @@ function newNick(){
       scale: $('.scale').val(),
     }
     $.post(url, logObject)
-    window.location.reload();
+    .then(function (){
+      window.location.reload();
+    })
+
   });
 }
 

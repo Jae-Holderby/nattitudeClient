@@ -82,7 +82,6 @@ function updateNick(data) {
         situation: $('.edit-situation').val(),
         scale: $('.edit-scale').val(),
       }
-      console.log(id);
       $.ajax({
         url: url + id,
         method: 'PUT',

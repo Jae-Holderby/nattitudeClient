@@ -22,33 +22,34 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
-    .then(function(response) {
-      if (response) {
-        console.log("[serviceWorker] Found in cache", event.request.url);
-        return response
-      }
-      var fetchRequest = event.request.clone();
+      .then(function(response) {
+    
+        if (response) {
+          return response;
+        }
 
-      return fetch(fetchRequest).then(
-        function(response) {
-          if(!response || response.status !== 200 || response.type !== 'basic') {
+        var fetchRequest = event.request.clone();
+
+        return fetch(fetchRequest).then(
+          function(response) {
+
+            if(!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            var responseToCache = response.clone();
+
+            caches.open(CACHE_NAME)
+              .then(function(cache) {
+                cache.put(event.request, responseToCache);
+              });
+
             return response;
           }
-          var responseToCache = response.clone();
-          console.log(responseToCache);
-
-        caches.open(CACHE_NAME)
-      .then (function(cache) {
-        cache.put(event.request, responseToCache);
-        });
-
-        return response;
-        }
-      );
-    })
-  )
-  console.log("[serviceWorker] Fetching", event.request);
-})
+        );
+      })
+    );
+});
 
 self.addEventListener('activate', function(event) {
 

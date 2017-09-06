@@ -1,7 +1,7 @@
 var CACHE_NAME = 'nattitude-site-cache-v1'
 var urlsToCache = [
   './',
-  './styles.css',
+  './style.css',
   './app.js',
   './index.html',
 ]

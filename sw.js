@@ -4,7 +4,8 @@ var urlsToCache = [
   './style.css',
   './app.js',
   './index.html',
-  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css",
+  'https://gentle-ridge-36425.herokuapp.com/'
 ]
 
 self.addEventListener('install', function(event) {

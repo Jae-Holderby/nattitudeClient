@@ -1,4 +1,4 @@
-var CHACHE_NAME = 'nattitude-site-cache-v1'
+var CACHE_NAME = 'nattitude-site-cache-v1'
 var urlsToCache = [
   '/',
   '/styles.css',
@@ -8,22 +8,18 @@ var urlsToCache = [
 
 self.addEventListener('install', (event) => {
   event.waitUntill(
-    chaches.open(CHACHE_NAME)
-    .then(function (chache) {
-      console.log("opened chache");
-      return chache.addAll(urlsToCache)
+    caches.open(CACHE_NAME)
+    .then(function (cache) {
+      console.log("opened cache");
+      return cache.addAll(urlsToCache)
     })
   )
   console.log("[serviceWorker] Installed");
 })
 
-self.addEventListener('activate', (event) => {
-  console.log("[serviceWorker] Activated");
-})
-
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    chaches.match(event.request)
+    caches.match(event.request)
     .then(function(response) {
       if (response) {
         return response
@@ -35,16 +31,35 @@ self.addEventListener('fetch', (event) => {
           if(!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
-          var responseToChache = response.clone();
+          var responseToCache = response.clone();
 
-        chaches.open(CHACHE_NAME)
-      .then (function(chache) {
-        chache.put(event.request, responseToChache);
+        caches.open(CACHE_NAME)
+      .then (function(cache) {
+        cache.put(event.request, responseToCache);
         });
-        return response
+
+        return response;
         }
       );
     })
   )
-  console.log("[serviceWorker] Afetching", event.request);
+  console.log("[serviceWorker] Fetching", event.request);
 })
+
+self.addEventListener('activate', function(event) {
+
+  var cacheWhitelist = ['pages-cache-v1', 'blog-posts-cache-v1'];
+
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+  console.log("[serviceWorker] Activated");
+});

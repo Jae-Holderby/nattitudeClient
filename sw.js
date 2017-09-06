@@ -24,6 +24,7 @@ self.addEventListener('fetch', function(event) {
     caches.match(event.request)
     .then(function(response) {
       if (response) {
+        console.log("[serviceWorker] Found in cache", event.request.url);
         return response
       }
       var fetchRequest = event.request.clone();
@@ -34,6 +35,7 @@ self.addEventListener('fetch', function(event) {
             return response;
           }
           var responseToCache = response.clone();
+          console.log(responseToCache);
 
         caches.open(CACHE_NAME)
       .then (function(cache) {

@@ -28,7 +28,22 @@ self.addEventListener('fetch', (event) => {
       if (response) {
         return response
       }
-      return fetch(event.request);
+      var fetchRequest = event.request.clone();
+
+      return fetch(fetchRequest).then(
+        function(response) {
+          if(!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          var responseToChache = response.clone();
+
+        chaches.open(CHACHE_NAME)
+      .then (function(chache) {
+        chache.put(event.request, responseToChache);
+        });
+        return response
+        }
+      );
     })
   )
   console.log("[serviceWorker] Afetching", event.request);

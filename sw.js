@@ -1,9 +1,9 @@
 var CACHE_NAME = 'nattitude-site-cache-v1'
 var urlsToCache = [
-  '/',
-  '/styles.css',
-  '/app.js',
-  '/index.html'
+  './',
+  './styles.css',
+  './app.js',
+  './index.html',
 ]
 
 self.addEventListener('install', (event) => {

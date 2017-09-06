@@ -1,4 +1,15 @@
 const url = 'https://gentle-ridge-36425.herokuapp.com/'
+
+if ('serviceWorker' in navigator){
+
+  navigator.serviceWorker.register('./sw.js')
+  .then(function(registration) {
+    console.log("service worker registered");
+  })
+  .catch(function(err) {
+    console.log("service worker failed to register", err);
+  })
+}
 $(document).ready(function () {
 
 $.get(url)

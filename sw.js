@@ -20,42 +20,35 @@ self.addEventListener('install', function(event) {
 })
 
 self.addEventListener('fetch', function(event) {
-  console.log("[serviceWorker] Fetching" event.request.url);
   event.respondWith(
     caches.match(event.request)
-      .then(function(response) {
+    .then(function(response) {
+      if (response) {
+        console.log("[serviceWorker] Found in cache", event.request);
+        return response
+      }
+      var fetchRequest = event.request.clone();
 
-        if (response) {
-          return response;
-        }
-
-        var fetchRequest = event.request.clone();
-
-        return fetch(fetchRequest).then(
-          function(response) {
-
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              console.log("[serviceWorker] No Response");
-              return response;
-            }
-
-            var responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-                return response;
-              });
-
+      return fetch(fetchRequest).then(
+        function(response) {
+          if(!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
-        );
-      })
-      .catch(function(err) {
-        console.log("[serviceWorker] Error Fetching & Caching New")
-      })
-    );
-});
+          var responseToCache = response.clone();
+          console.log(responseToCache);
+
+        caches.open(CACHE_NAME)
+      .then (function(cache) {
+        cache.put(event.request, responseToCache);
+        });
+
+        return response;
+        }
+      );
+    })
+  )
+  console.log("[serviceWorker] Fetching", event.request);
+})
 
 self.addEventListener('activate', function(event) {
 

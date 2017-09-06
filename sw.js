@@ -1,12 +1,13 @@
-var CACHE_NAME = 'nattitude-site-cache-v1'
+var CACHE_NAME = 'v1'
 var urlsToCache = [
   './',
   './style.css',
   './app.js',
   './index.html',
+  "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
 ]
 
-self.addEventListener('install', (event) => {
+self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function (cache) {
@@ -17,7 +18,7 @@ self.addEventListener('install', (event) => {
   console.log("[serviceWorker] Installed");
 })
 
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request)
     .then(function(response) {
